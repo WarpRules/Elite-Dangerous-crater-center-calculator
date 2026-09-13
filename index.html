@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crater Center Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Crater Center Calculator</h1>
+      <p>Enter three or more points on the edge of a circular crater. The calculator finds the best-fitting spherical center in latitude/longitude.</p>
+    </header>
+
+    <section class="card">
+      <div class="toolbar">
+        <h2>Crater edge points</h2>
+        <div class="actions">
+          <button id="addPoint" type="button">+ Add point</button>
+          <button id="example" type="button" class="secondary">Load example</button>
+          <button id="clear" type="button" class="secondary">Clear</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Latitude (°)</th>
+              <th>Longitude (°)</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="pointsBody"></tbody>
+        </table>
+      </div>
+
+      <p class="hint">Use decimal degrees. Latitude: −90 to +90. Longitude: −180 to +180. The calculation updates as you type.</p>
+    </section>
+
+    <section class="results-grid">
+      <div class="card result-card">
+        <h2>Estimated center</h2>
+        <div class="result">
+          <span>Latitude</span>
+          <strong id="centerLat">—</strong>
+        </div>
+        <div class="result">
+          <span>Longitude</span>
+          <strong id="centerLon">—</strong>
+        </div>
+      </div>
+
+      <div class="card result-card">
+        <h2>Estimated crater</h2>
+        <div class="result">
+          <span>Angular radius</span>
+          <strong id="angularRadius">—</strong>
+        </div>
+        <div class="result">
+          <span>Surface radius</span>
+          <strong id="surfaceRadius">—</strong>
+        </div>
+        <label class="planet-radius">
+          Planet radius
+          <input id="planetRadius" type="number" min="0" step="any" value="6371">
+          <select id="radiusUnit" aria-label="Planet radius unit">
+            <option value="km">km</option>
+            <option value="mi">mi</option>
+            <option value="m">m</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="card result-card">
+        <h2>Fit quality</h2>
+        <div class="result">
+          <span>Mean error</span>
+          <strong id="meanError">—</strong>
+        </div>
+        <div class="result">
+          <span>Maximum error</span>
+          <strong id="maxError">—</strong>
+        </div>
+        <div class="result">
+          <span>RMS error</span>
+          <strong id="rmsError">—</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="card visualization-card">
+      <div class="toolbar">
+        <div>
+          <h2>Visualization</h2>
+          <p class="subtle">An azimuthal-equidistant projection centered on the estimated crater center.</p>
+        </div>
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="plot" width="900" height="520"></canvas>
+      </div>
+    </section>
+
+    <section id="status" class="status" aria-live="polite"></section>
+
+    <footer>
+      <p>Calculations are performed locally in your browser. No coordinates are uploaded anywhere.</p>
+    </footer>
+  </main>
+
+  <script src="crater.js"></script>
+</body>
+</html>
